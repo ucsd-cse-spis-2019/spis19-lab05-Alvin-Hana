@@ -1,5 +1,7 @@
 #lab05 pair programming
 from PIL import Image
+import random
+
 def greyscale(im):
     #gets the width and height of picture
     (width, height) = im.size
@@ -83,22 +85,31 @@ def blur(im):
             copyim.putpixel((x, y+1), (avgRed, avgGreen, avgBlue))
     return copyim
 
+def randomGrid(im):
+    (width, height) = im.size
+    copyim = Image.new('RGB', (width,height))
+    for x in range( 0, width, 100 ):
+        for y in range( 0, height, 100 ):
+            xRand = random.randrange(0, 6)
+            yRand = random.randrange(0, 8)
+
+
 
 
 
 bear = Image.open("bear.png")
-jaz = Image.open("jaz.jpg")
+#jaz = Image.open("jaz.jpg")
 #binarize(bear,127, 0, 0, 600, 800)
 #binarize(jaz,127, 0, 0, 700,950)
-curt = Image.open("curt.jpg")
+#curt = Image.open("curt.jpg")
 #mirrorHoriz(jaz)
 #bear.show()
 #flipVert(jaz)
 #mirrorHoriz(curt)
 #flipVert(curt)
 #curt.show()
-newjaz = blur(jaz)
-jaz.show()
-newjaz.show()
+newbear = randomGrid(bear)
+bear.show()
+newbear.show()
 #jaz.save("coolest jaz.jpg")
 #curt.save("cooler_curtz.jpg")
