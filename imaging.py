@@ -55,7 +55,36 @@ def flipVert(im):
             im.putpixel(((x),(height-y-1)),(red, green, blue))
             im.putpixel (((x),(y)),(upperred, uppergreen, upperblue))
 
-            
+def scale(im):
+    (width, height) = im.size
+    copyim = Image.new('RGB', (width//2,height//2))
+    for x in range( width//2 ):
+        for y in range( height//2 ):
+            (red, green, blue) = im.getpixel((x*2, y*2))
+            copyim.putpixel((x, y), (red, green, blue))
+    return copyim
+
+
+def blur(im):
+    (width, height) = im.size
+    copyim = Image.new('RGB', (width,height))
+    for x in range( 0, width, 2 ):
+        for y in range( 0, height, 2 ):
+            (red1, green1, blue1) = im.getpixel((x, y))
+            (red2, green2, blue2) = im.getpixel((x+1,y))
+            (red3, green3, blue3) = im.getpixel((x+1,y+1))
+            (red4, green4, blue4) = im.getpixel((x,y+1))
+            avgRed = (red1+red2+red3+red4)//4
+            avgGreen = (green1+green2+green3+green4)//4
+            avgBlue = (blue1+blue2+blue3+blue4)//4
+            copyim.putpixel((x, y), (avgRed, avgGreen, avgBlue))
+            copyim.putpixel((x+1, y), (avgRed, avgGreen, avgBlue))
+            copyim.putpixel((x+1, y+1), (avgRed, avgGreen, avgBlue))
+            copyim.putpixel((x, y+1), (avgRed, avgGreen, avgBlue))
+    return copyim
+
+
+
 
 bear = Image.open("bear.png")
 jaz = Image.open("jaz.jpg")
@@ -65,8 +94,11 @@ curt = Image.open("curt.jpg")
 #mirrorHoriz(jaz)
 #bear.show()
 #flipVert(jaz)
-mirrorHoriz(curt)
-flipVert(curt)
-curt.show()
+#mirrorHoriz(curt)
+#flipVert(curt)
+#curt.show()
+newjaz = blur(jaz)
+jaz.show()
+newjaz.show()
 #jaz.save("coolest jaz.jpg")
-curt.save("cooler_curtz.jpg")
+#curt.save("cooler_curtz.jpg")
