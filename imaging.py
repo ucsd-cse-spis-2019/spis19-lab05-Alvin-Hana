@@ -92,14 +92,15 @@ def randomGrid(im):
         for y in range( 0, height, 100):
             xRand = random.randrange(0, 6)
             yRand = random.randrange(0, 8)
-            for x1 in range (xRand*100, xRand*100+100):
-                for y1 in range (yRand*100, yRand*100+100):
-                    (red, green, blue) = im.getpixel((x, y))
+            #these second for loops loop through all the pixels in a 100x100 grid. we then add the counting variables to the original square and the randomly chosen square
+            for x1 in range (100):
+                for y1 in range (100):
+                    (red, green, blue) = im.getpixel((x+x1, y+y1))
                     #creates color variables on lower half pixels
-                    (upperred, uppergreen, upperblue) = im.getpixel((x1, y1))
+                    (upperred, uppergreen, upperblue) = im.getpixel((xRand*100+x1, yRand*100+y1))
                     #swaps colors of the two pixels
-                    copyim.putpixel(((x1),(y1)),(red, green, blue))
-                    copyim.putpixel (((x),(y)),(upperred, uppergreen, upperblue))
+                    copyim.putpixel(((xRand*100+x1),(yRand*100+y1)),(red, green, blue))
+                    copyim.putpixel (((x+x1),(y+y1)),(upperred, uppergreen, upperblue))
     return copyim
              
 
