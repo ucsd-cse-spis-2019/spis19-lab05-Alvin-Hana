@@ -88,13 +88,20 @@ def blur(im):
 def randomGrid(im):
     (width, height) = im.size
     copyim = Image.new('RGB', (width,height))
-    for x in range( 0, width, 100 ):
-        for y in range( 0, height, 100 ):
+    for x in range( 0, width, 100):
+        for y in range( 0, height, 100):
             xRand = random.randrange(0, 6)
             yRand = random.randrange(0, 8)
-
-
-
+            for x1 in range (xRand*100, xRand*100+100):
+                for y1 in range (yRand*100, yRand*100+100):
+                    (red, green, blue) = im.getpixel((x, y))
+                    #creates color variables on lower half pixels
+                    (upperred, uppergreen, upperblue) = im.getpixel((x1, y1))
+                    #swaps colors of the two pixels
+                    copyim.putpixel(((x1),(y1)),(red, green, blue))
+                    copyim.putpixel (((x),(y)),(upperred, uppergreen, upperblue))
+    return copyim
+             
 
 
 bear = Image.open("bear.png")
@@ -109,7 +116,7 @@ bear = Image.open("bear.png")
 #flipVert(curt)
 #curt.show()
 newbear = randomGrid(bear)
-bear.show()
+#bear.show()
 newbear.show()
 #jaz.save("coolest jaz.jpg")
 #curt.save("cooler_curtz.jpg")
